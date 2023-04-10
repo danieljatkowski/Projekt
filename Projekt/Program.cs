@@ -1,9 +1,15 @@
 ﻿using Projekt;
-using System.Threading.Tasks.Sources;
+
+List<Employee> employeeList = new List<Employee>();
+int maxScore = 0;
 
 Employee employee1 = new Employee("Tomasz", "Kozłowski", 34);
 Employee employee2 = new Employee("Jan", "Poniatowski", 53);
 Employee employee3 = new Employee("Grzegorz", "Brzęczyszczykiewicz", 44);
+
+employeeList.Add(employee1);
+employeeList.Add(employee2);
+employeeList.Add(employee3);
 
 Random random = new Random();
 for (int i = 0; i < 3; i++)
@@ -13,22 +19,20 @@ for (int i = 0; i < 3; i++)
     employee3.AddScore(random.Next(1, 11));
 }
 
+Employee best = null;
 
 
-if (employee1.ScoreResult > employee2.ScoreResult && employee1.ScoreResult > employee3.ScoreResult)
+foreach (var employee in employeeList)
 {
-    Console.WriteLine("Pan/i " + employee1.Name + " " + employee1.Surname + " " + employee1.Age + " zdobył/a największą liczbę punktów bo aż " + employee1.ScoreResult);
+    Console.WriteLine(employee.Name + " " + employee.Surname + " " + employee.Age + " lat, suma punktów: " + employee.ScoreResult);
+    
+    if (maxScore < employee.ScoreResult)
+    {
+        maxScore = employee.ScoreResult;
+        best = employee;
+        
+    }
 }
-else if (employee2.ScoreResult > employee1.ScoreResult && employee2.ScoreResult > employee3.ScoreResult)
-{
-    Console.WriteLine("Pan/i " + employee2.Name + " " + employee2.Surname + " " + employee2.Age + " zdobył/a największą liczbę punktówbo aż " + employee2.ScoreResult);
-}
-else if (employee3.ScoreResult > employee1.ScoreResult && employee3.ScoreResult > employee2.ScoreResult)
-{
-    Console.WriteLine("Pan/i " + employee3.Name + " " + employee3.Surname + " " + employee3.Age + " zdobył/a największą liczbę punktów bo aż " + employee3.ScoreResult);
 
-}
-else
-{
-    Console.Write("Z powodu EX AEQUO brak pracownika z największą ilością punktów");
-}
+Console.WriteLine();
+Console.WriteLine("Pracownikiem z największą ilością punktów jest: " + best.Name + " " + best.Surname + " z ilością punktów: " + best.ScoreResult);
